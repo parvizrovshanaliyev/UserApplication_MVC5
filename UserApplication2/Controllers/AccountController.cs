@@ -73,6 +73,7 @@ namespace UserApplication2.Controllers
 
 
             return View(user);
+
         }
     }
 }
