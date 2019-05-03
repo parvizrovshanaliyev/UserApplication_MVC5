@@ -64,7 +64,7 @@ namespace UserApplication2.Controllers
             {
                 foreach (var item in result.Errors.ToList())
                 {
-                    ModelState.AddModelError(" ", item);
+                    ModelState.AddModelError("Password", item);
 
                 }
                 return View(userI);
@@ -88,14 +88,78 @@ namespace UserApplication2.Controllers
 
         }
 
-
-        //[HttpPost,ValidateAntiForgeryToken]
-
-        //public async Task<ActionResult> Edit(UserApp user,string Password)
+        //[HttpPost, ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit(UserApp user, string Password)
         //{
+        //    UserApp userdb = await UserManagerApp.FindByIdAsync(user.Id);
 
+        //    userdb.UserName = user.UserName;
+        //    userdb.Email = user.Email;
+
+        //    userdb.PasswordHash = UserManagerApp.PasswordHasher.HashPassword(Password);
+
+        //    IdentityResult results = await UserManagerApp.UpdateAsync(userdb);
+
+        //    if (results.Succeeded)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    results.Errors.ToList().ForEach(x => ModelState.AddModelError("", x));
+        //    return View(user);
         //}
 
-        
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(UserApp user, string Password)
+        {
+            if (!ModelState.IsValid) return View(user);
+
+            UserApp userdb = await UserManagerApp.FindByIdAsync(user.Id);
+            if (userdb == null) return HttpNotFound();
+
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                ModelState.AddModelError("Email", "Email not null");
+                return View(user);
+            }
+
+            if (UserManagerApp.Users.Any(u => u.Email == user.Email && u.Id != user.Id))
+            {
+                ModelState.AddModelError("Email", "Email already taken");
+                return View(user);
+            }
+
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                ModelState.AddModelError("UserName", "UserName not null");
+                return View(user);
+            }
+
+            if (UserManagerApp.Users.Any(u => u.UserName == user.UserName && u.Id != user.Id))
+            {
+                ModelState.AddModelError("UserName", "UserName is already taken");
+                return View(user);
+            }
+
+            if (string.IsNullOrEmpty(Password))
+            {
+                ModelState.AddModelError("Password", "Password not null");
+                return View(user);
+            }
+            userdb.UserName = user.UserName;
+            userdb.Email = user.Email;
+            userdb.PasswordHash = UserManagerApp.PasswordHasher.HashPassword(Password);
+
+            IdentityResult resulte = await UserManagerApp.UpdateAsync(userdb);
+
+            if (resulte.Succeeded) { return RedirectToAction("Index"); }
+
+            resulte.Errors.ToList().ForEach(e => ModelState.AddModelError(" ", e));
+            return View(user);
+
+
+        }
+
+
     }
 }
