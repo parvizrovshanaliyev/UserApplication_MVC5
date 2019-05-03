@@ -64,7 +64,7 @@ namespace UserApplication2.Controllers
             {
                 foreach (var item in result.Errors.ToList())
                 {
-                    ModelState.AddModelError("Password", item);
+                    ModelState.AddModelError(" ", item);
 
                 }
                 return View(userI);
@@ -162,8 +162,9 @@ namespace UserApplication2.Controllers
 
         public async Task<ActionResult> Delete(string id)
         {
+            if (string.IsNullOrEmpty(id)) return HttpNotFound("Id gelmir");
             UserApp userdb = await UserManagerApp.FindByIdAsync(id);
-
+            if (userdb == null) return HttpNotFound("bele bir user yoxdu");
             IdentityResult result = await UserManagerApp.DeleteAsync(userdb);
 
             if (result.Succeeded)

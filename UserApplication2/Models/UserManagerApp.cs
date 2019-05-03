@@ -31,7 +31,7 @@ namespace UserApplication2.Models
             };
             //pass.RequireNonLetterOrDigit = true; //passwordde her reqemden basqa simvol olmasi ucun
 
-            UserValidator<UserApp> userValidator = new UserValidator<UserApp>(user)
+            CustomUserValidator userValidator = new CustomUserValidator(user)
             {
                 RequireUniqueEmail = true,
                 AllowOnlyAlphanumericUserNames = true
