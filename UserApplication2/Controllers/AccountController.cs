@@ -34,15 +34,27 @@ namespace UserApplication2.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(UserApp user,string password)
+        public async Task<ActionResult> Create(UserApp userI,string Password)
         {
+            if (!ModelState.IsValid) return View(userI);
+            if(UserManagerApp.Users.Any(user=>user.Email == userI.Email))
+            {
+                ModelState.AddModelError("Email", "Email already taken");
+                return View(userI);
+            }
+
+            if (UserManagerApp.Users.Any(user => user.UserName == userI.UserName))
+            {
+                ModelState.AddModelError("UserName", "UserName is already taken");
+                return View(userI);
+            }
             UserApp userdb = new UserApp()
             {
-                UserName = user.UserName,
-                Email = user.Email
+                UserName = userI.UserName,
+                Email = userI.Email
             };
 
-            IdentityResult result = await UserManagerApp.CreateAsync(userdb, password);
+            IdentityResult result = await UserManagerApp.CreateAsync(userdb, Password);
 
             if (result.Succeeded)
             {
@@ -52,10 +64,10 @@ namespace UserApplication2.Controllers
             {
                 foreach (var item in result.Errors.ToList())
                 {
-                    ModelState.AddModelError("Password", item);
+                    ModelState.AddModelError(" ", item);
 
                 }
-                return View(user);
+                return View(userI);
 
             }
 
@@ -75,5 +87,15 @@ namespace UserApplication2.Controllers
             return View(user);
 
         }
+
+
+        //[HttpPost,ValidateAntiForgeryToken]
+
+        //public async Task<ActionResult> Edit(UserApp user,string Password)
+        //{
+
+        //}
+
+        
     }
 }
