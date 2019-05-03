@@ -21,6 +21,24 @@ namespace UserApplication2.Models
             UserAppDbContext context = owinContext.Get<UserAppDbContext>();
             UserManagerApp user = new UserManagerApp(new UserStore<UserApp>(context));
 
+
+            PasswordValidator pass = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireDigit = true,
+                RequireLowercase = true,
+                RequireUppercase = false
+            };
+            //pass.RequireNonLetterOrDigit = true; //passwordde her reqemden basqa simvol olmasi ucun
+
+            UserValidator<UserApp> userValidator = new UserValidator<UserApp>(user)
+            {
+                RequireUniqueEmail = true,
+                AllowOnlyAlphanumericUserNames = true
+            };
+
+            user.PasswordValidator = pass;
+            user.UserValidator = userValidator;
             return user;
         }
     }

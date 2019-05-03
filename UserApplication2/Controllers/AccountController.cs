@@ -154,12 +154,24 @@ namespace UserApplication2.Controllers
 
             if (resulte.Succeeded) { return RedirectToAction("Index"); }
 
-            resulte.Errors.ToList().ForEach(e => ModelState.AddModelError(" ", e));
+            resulte.Errors.ToList().ForEach(e => ModelState.AddModelError("Password", e));
             return View(user);
 
 
         }
 
+        public async Task<ActionResult> Delete(string id)
+        {
+            UserApp userdb = await UserManagerApp.FindByIdAsync(id);
 
+            IdentityResult result = await UserManagerApp.DeleteAsync(userdb);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
     }
 }
