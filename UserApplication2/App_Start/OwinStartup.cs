@@ -24,6 +24,8 @@ namespace UserApplication2.App_Start
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login")
             });
+
+            app.CreatePerOwinContext<RoleManagerApp>(RoleManagerApp.Create);
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
         }
     }

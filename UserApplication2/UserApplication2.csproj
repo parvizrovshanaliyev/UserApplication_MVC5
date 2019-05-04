@@ -154,10 +154,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DAL\UserAppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="Migrations\201905031003214_InitialCreate.cs" />
     <Compile Include="Migrations\201905031003214_InitialCreate.Designer.cs">
       <DependentUpon>201905031003214_InitialCreate.cs</DependentUpon>
@@ -166,8 +168,14 @@
     <Compile Include="Migrations\201905031809109_pass-user_validator.Designer.cs">
       <DependentUpon>201905031809109_pass-user_validator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905040941075_change.cs" />
+    <Compile Include="Migrations\201905040941075_change.Designer.cs">
+      <DependentUpon>201905040941075_change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomUserValidator.cs" />
+    <Compile Include="Models\RoleApp.cs" />
+    <Compile Include="Models\RoleManagerApp.cs" />
     <Compile Include="Models\UserApp.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserManagerApp.cs" />
@@ -208,6 +216,9 @@
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\UserRolesManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -223,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905031809109_pass-user_validator.resx">
       <DependentUpon>201905031809109_pass-user_validator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905040941075_change.resx">
+      <DependentUpon>201905040941075_change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

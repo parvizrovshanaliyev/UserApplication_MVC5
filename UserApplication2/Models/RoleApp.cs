@@ -6,8 +6,14 @@ using System.Web;
 
 namespace UserApplication2.Models
 {
-    public class UserApp:IdentityUser
+    public class RoleApp : IdentityRole
     {
-       
+        public RoleApp():base()
+        {
+        }
+
+        public RoleApp(string roleName) : base(roleName)
+        {
+        }
     }
 }
