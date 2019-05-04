@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -173,6 +175,56 @@ namespace UserApplication2.Controllers
             }
 
             return View();
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult Login(string retunURL)
+        {
+            ViewBag.url = retunURL;
+
+            return View();
+        }
+
+        [HttpPost,ValidateAntiForgeryToken,AllowAnonymous]
+        public async Task< ActionResult> Login(UserLogin user, string returnURL)
+        {
+            if (ModelState.IsValid)
+            {
+                UserApp userDb = UserManagerApp.FindByEmail(user.Email);
+
+                if (userDb == null)
+                {
+                    ModelState.AddModelError("Email", "Email  incorrect");
+                    return View(user);
+                }
+
+                UserApp CurrentUser = await UserManagerApp.FindAsync(userDb.UserName, user.Password);
+
+                if (CurrentUser == null)
+                {
+                    ModelState.AddModelError("Password", "Password incorrect");
+                    return View(user);
+                }
+                else
+                {
+
+                    ClaimsIdentity identity = await UserManagerApp.CreateIdentityAsync(CurrentUser, DefaultAuthenticationTypes.ApplicationCookie);
+                    HttpContext.GetOwinContext().Authentication.SignOut();
+                    HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties()
+                    {
+                        IsPersistent = true   ///true da  coockie de qalir - false sessionda saxliyir
+
+                    }, identity);
+                }
+
+                return Redirect(returnURL);
+
+            }
+            else
+            {
+                return View(user);
+            }
         }
     }
 }

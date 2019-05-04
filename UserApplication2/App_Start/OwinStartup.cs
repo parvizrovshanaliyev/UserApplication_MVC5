@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Owin;
 using UserApplication2.DAL;
@@ -16,6 +17,13 @@ namespace UserApplication2.App_Start
             app.CreatePerOwinContext<UserAppDbContext>(() => new UserAppDbContext());
 
             app.CreatePerOwinContext<UserManagerApp>(UserManagerApp.Create);
+
+            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions()
+            {
+
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
         }
     }

@@ -29,6 +29,10 @@ namespace UserApplication2.Models
                 RequireLowercase = true,
                 RequireUppercase = false
             };
+
+            user.UserLockoutEnabledByDefault = true;
+            user.MaxFailedAccessAttemptsBeforeLockout = 3;
+           
             //pass.RequireNonLetterOrDigit = true; //passwordde her reqemden basqa simvol olmasi ucun
 
             CustomUserValidator userValidator = new CustomUserValidator(user)
