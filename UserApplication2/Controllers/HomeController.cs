@@ -21,7 +21,7 @@ namespace UserApplication2.Controllers
             }
         }
         // GET: Home
-        [Authorize]
+        [Authorize(Roles ="admin")]
         public ActionResult Index()
         {
             return View(UserManagerApp.Users);

@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -217,14 +218,28 @@ namespace UserApplication2.Controllers
 
                     }, identity);
                 }
-
-                return Redirect(returnURL);
+                if (!string.IsNullOrEmpty(returnURL))
+                {
+                    return Redirect(returnURL);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                
 
             }
             else
             {
                 return View(user);
             }
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Role");
         }
     }
 }

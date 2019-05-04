@@ -30,9 +30,13 @@ namespace UserApplication2.Models
                 RequireUppercase = false
             };
 
+            //user.UserLockoutEnabledByDefault = true;
+            //user.MaxFailedAccessAttemptsBeforeLockout = 3;
+
+            // Configure user lockout defaults
             user.UserLockoutEnabledByDefault = true;
-            user.MaxFailedAccessAttemptsBeforeLockout = 3;
-           
+            user.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            user.MaxFailedAccessAttemptsBeforeLockout = 5;
             //pass.RequireNonLetterOrDigit = true; //passwordde her reqemden basqa simvol olmasi ucun
 
             CustomUserValidator userValidator = new CustomUserValidator(user)
