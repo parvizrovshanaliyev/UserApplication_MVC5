@@ -19,6 +19,14 @@
                 @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Role", "Index", "Role", new { area = "" }, new { @class = "navbar-brand" })
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Role", "Index", "Role", new { area = "" }, new { @class = "navbar-brand" })
+
+                }
+                else {
+
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

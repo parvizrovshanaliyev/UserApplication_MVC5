@@ -14,7 +14,7 @@ namespace UserApplication2.Models
         [StringLength(100), Required,MinLength(6)]
         public string Password { get; set; }
 
-        //[Display(Name = "Remmember me?")]
-        //public bool RemmemberMe { get; set; }
+        [Display(Name = "Remmember me?")]
+        public bool RemmemberMe { get; set; }
     }
 }

@@ -193,7 +193,7 @@ namespace UserApplication2.Controllers
             if (ModelState.IsValid)
             {
                 UserApp userDb = UserManagerApp.FindByEmail(user.Email);
-
+                
                 if (userDb == null)
                 {
                     ModelState.AddModelError("Email", "Email  incorrect");
@@ -214,7 +214,7 @@ namespace UserApplication2.Controllers
                     HttpContext.GetOwinContext().Authentication.SignOut();
                     HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties()
                     {
-                        IsPersistent = true   ///true da  coockie de qalir - false sessionda saxliyir
+                        IsPersistent = user.RemmemberMe   ///true da  coockie de qalir - false sessionda saxliyir
 
                     }, identity);
                 }
