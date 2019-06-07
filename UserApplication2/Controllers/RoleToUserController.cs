@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace UserApplication2.Controllers
 {
+
     public class RoleToUserController : Controller
     {
         // GET: RoleToUser

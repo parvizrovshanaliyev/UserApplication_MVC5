@@ -180,7 +180,7 @@ namespace UserApplication2.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult useLogin(string retunURL)
+        public ActionResult Login(string retunURL)
         {
             ViewBag.url = retunURL;
 

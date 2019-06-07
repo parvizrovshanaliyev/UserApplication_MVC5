@@ -173,7 +173,20 @@
     <Compile Include="Migrations\201905040941075_change.Designer.cs">
       <DependentUpon>201905040941075_change.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905110534255_USERROLES.cs" />
+    <Compile Include="Migrations\201905110534255_USERROLES.Designer.cs">
+      <DependentUpon>201905110534255_USERROLES.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905110537125_dropcolumn.cs" />
+    <Compile Include="Migrations\201905110537125_dropcolumn.Designer.cs">
+      <DependentUpon>201905110537125_dropcolumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905110550159_db.cs" />
+    <Compile Include="Migrations\201905110550159_db.Designer.cs">
+      <DependentUpon>201905110550159_db.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AspNetUserRole.cs" />
     <Compile Include="Models\CustomUserValidator.cs" />
     <Compile Include="Models\RoleApp.cs" />
     <Compile Include="Models\RoleManagerApp.cs" />
@@ -239,6 +252,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905040941075_change.resx">
       <DependentUpon>201905040941075_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905110534255_USERROLES.resx">
+      <DependentUpon>201905110534255_USERROLES.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905110537125_dropcolumn.resx">
+      <DependentUpon>201905110537125_dropcolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905110550159_db.resx">
+      <DependentUpon>201905110550159_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

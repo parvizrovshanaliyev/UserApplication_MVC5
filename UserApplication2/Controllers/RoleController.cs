@@ -10,6 +10,7 @@ using UserApplication2.Models;
 
 namespace UserApplication2.Controllers
 {
+
     public class RoleController : Controller
     {
         public UserManagerApp UserManagerApp

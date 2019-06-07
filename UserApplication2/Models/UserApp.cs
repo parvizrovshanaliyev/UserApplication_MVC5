@@ -8,6 +8,11 @@ namespace UserApplication2.Models
 {
     public class UserApp:IdentityUser
     {
-       
+        //public UserApp()
+        //{
+        //    AspNetUserRoles = new HashSet<AspNetUserRole>();
+        //}
+
+        //public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }
