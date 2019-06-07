@@ -34,8 +34,46 @@ namespace UserApplication2.DAL
             protected override void Seed(UserAppDbContext context)
             {
                 UserManagerApp userManager = new UserManagerApp(new UserStore<UserApp>(context));
+                RoleManagerApp roleManager = new RoleManagerApp(new RoleStore<RoleApp>(context));
 
 
+                string roleName = "testAdmin";
+                string userName = "testUserName";
+                string password = "testPass";
+                string email = "test@email.com";
+                if (!roleManager.RoleExists(roleName))
+                {
+                    roleManager.Create(new RoleApp(roleName));
+                }
+                UserApp user = userManager.FindByName(userName);
+                if (user == null)
+                {
+                    userManager.Create(new UserApp { UserName = userName, Email = email }, password);
+                    user = userManager.FindByName(userName);
+                }
+                if (!userManager.IsInRole(user.Id, roleName))
+                {
+                    userManager.AddToRole(user.Id, roleName);
+                }
+                //string roleName = "Administrators";
+                //string userName = "admin";
+                //string password = "admin1"; //password must be at least 6 characters by default
+                //string email = "admin@example.com";
+                //if (!roleMgr.RoleExists(roleName))
+                //{
+                //    roleMgr.Create(new AppRole(roleName));
+                //}
+                //AppUser user = userMgr.FindByName(userName);
+                //if (user == null)
+                //{
+                //    userMgr.Create(new AppUser { UserName = userName, Email = email }, password);
+                //    user = userMgr.FindByName(userName);
+                //}
+                //if (!userMgr.IsInRole(user.Id, roleName))
+                //{
+                //    userMgr.AddToRole(user.Id, roleName);
+                //}
+                //base.Seed(context);
                 ////Step 1 Create the user.
                 //var passwordHasher = new PasswordHasher();
                 //IdentityUser user = new IdentityUser("Administrator")
